@@ -7,7 +7,7 @@ def modificar_datos_alumno(legajo_alumno):
         nuevo_documento = validar_num("dni")
         nueva_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
         nuevo_telefono = validar_num("telefono")
-        nuevo_domicilio = validar_domicilio("alumno")
+        nuevo_domicilio = pedir_domicilio()
         nuevo_correo = validar_correo("alumno")
 
         query = " UPDATE alumnos SET Nombre = %s, Apellido = %s, Documento = %s, Fecha_Nacimiento = %s, Telefono = %s, Domicilio = %s, Correo = %s WHERE legajo = %s "
@@ -27,7 +27,7 @@ def modificar_datos_profesor(id_profesor):
         nuevo_documento = validar_num('dni')
         nueva_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
         nuevo_telefono = validar_num('telefono')
-        nuevo_domicilio = validar_domicilio("profesor")
+        nuevo_domicilio = pedir_domicilio()
         nuevo_correo = validar_correo("profesor")
 
         query = "UPDATE profesores SET Nombre = %s, Apellido = %s, Documento = %s, Fecha_Nacimiento = %s, Telefono = %s, Domicilio = %s, Correo = %s WHERE idprofesor = %s"

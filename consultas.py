@@ -98,14 +98,18 @@ def validar_num(opcion):
         else:
             print("Legajo invalido")
 
-def validar_domicilio(opcion):
-    patron = r'[a-zA-Z]+ [0-9]'
-    domicilio = input(f"ingrese el domicilio del {opcion}: ")
-    if re.match(patron, domicilio):
-        print("Domicilio Valido")
-        return domicilio
-    else:
-        print("Domicilio Invalido")
+def pedir_domicilio():
+    while True:
+        domicilio = input("Ingresa tu domicilio: ")
+        # Verifica que el domicilio cumpla con los requisitos:
+        # 1. Mínimo una palabra.
+        # 2. Máximo 3 palabras.
+        # 3. Exactamente 4 números.
+        if re.fullmatch(r"(\b\w+\b\s?){1,3}\d{4}$", domicilio.strip()):
+            print("Domicilio válido:", domicilio)
+            return domicilio
+        else:
+            print("Dirección no válida. Intenta de nuevo.")
 
 def validar_correo(nombre):
     patron = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
@@ -158,7 +162,7 @@ def ingresar_Alumno():
         documento = validar_num('dni')
         fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
         telefono = validar_num('telefono')
-        domicilio = validar_domicilio("alumno")
+        domicilio = pedir_domicilio()
         correo = validar_correo("alumno")
     except: # en caso de ingresar mal los datos da error
         print("Datos ingresados erroneamente")
@@ -179,7 +183,7 @@ def ingresar_profesor():
         documento = validar_num('dni')
         fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
         telefono = validar_num('telefono')
-        domicilio = validar_domicilio("profesor")
+        domicilio = pedir_domicilio()
         correo = validar_correo("profesor")
     except: # en caso de ingresar mal los datos da error
         print("Datos ingresados erroneamente")
