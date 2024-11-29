@@ -45,7 +45,7 @@ def ver_Alumno():
             print("="*30)
         return tabla
     except mysql.connector.Error as err:
-        print("error")
+        print(f"error: {err}")
     finally:
         cursor.close()
         conexion.close()
@@ -114,7 +114,7 @@ def ver_Curso():
             print("="*30)
         return tabla
     except mysql.connector.Error as err:
-        print("error")
+        print(f"error: {err}")
     finally:
         cursor.close()
         conexion.close()
