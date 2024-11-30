@@ -2,8 +2,8 @@ from consultas import *
 
 def modificar_datos_alumno(legajo_alumno):
     try:
-        nuevo_nombre = input("Ingrese el nuevo nombre: ")
-        nuevo_apellido = input("Ingrese el nuevo apellido: ")
+        nuevo_nombre = ingresar_nombre()
+        nuevo_apellido = ingresar_apellido()
         nuevo_documento = validar_num("dni")
         nueva_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
         nuevo_telefono = validar_num("telefono")
@@ -22,8 +22,8 @@ def modificar_datos_alumno(legajo_alumno):
 
 def modificar_datos_profesor(id_profesor):
     try:
-        nuevo_nombre = input("Ingrese el nuevo nombre: ")
-        nuevo_apellido = input("Ingrese el nuevo apellido: ")
+        nuevo_nombre = ingresar_nombre()
+        nuevo_apellido = ingresar_apellido()
         nuevo_documento = validar_num('dni')
         nueva_fecha_nacimiento = input("Ingrese la nueva fecha de nacimiento (YYYY-MM-DD): ")
         nuevo_telefono = validar_num('telefono')
@@ -42,12 +42,12 @@ def modificar_datos_profesor(id_profesor):
 def modificar_datos_curso(id_curso):
     try:
         nuevo_año = validacion_año("año")
-        nuevo_turno = input("Ingrese el nuevo turno: ")
+        nuevo_turno = turno()
         nueva_materia = input("Ingrese la nueva materia: ")
-        nuevo_profesor = input("Ingrese el nuevo profesor: ")
+        nuevo_profesor_idprofesor = int(input("Ingrese el nuevo profesor: "))
 
         query = "UPDATE curso SET Año = %s, Turno = %s, Materia = %s, Profesores_idprofesor = %s WHERE idcurso = %s"
-        params = (nuevo_año, nuevo_turno, nueva_materia, nuevo_profesor, id_curso)
+        params = (nuevo_año, nuevo_turno, nueva_materia, nuevo_profesor_idprofesor, id_curso)
 
         ejecutar_consulta(query, params)
         print(f"El curso con id {id_curso} fue modificado exitosamente.")

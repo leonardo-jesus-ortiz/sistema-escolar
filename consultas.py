@@ -77,6 +77,24 @@ def mostrar_opciones(opcion):
                 print("="*30)
         return tabla
     
+def ingresar_nombre():
+    while True:
+        nombre = input("Ingresa tu nombre: ").strip()
+        if len(re.findall(r'\b\w+\b', nombre)) <= 3 and len(nombre.replace(" ", "")) >= 3:
+            print(f"Nombre ingresado correctamente: {nombre}")
+            return nombre
+        print("El nombre no es correcto. Inténtalo de nuevo.")
+
+def ingresar_apellido():
+    while True:
+        apellido = input("Ingresa tu apellido: ").strip()
+        if len(re.findall(r'\b\w+\b', apellido)) <= 2 and len(apellido.replace(" ", "")) >= 3:
+            print(f"Apellido ingresado correctamente: {apellido}")
+            return apellido
+        print("El apellido no es correcto. Inténtalo de nuevo.")
+
+
+    
 def validar_num(opcion):
     num = input(f"ingrese el numero de {opcion}: ")
     if opcion == "dni":
@@ -101,10 +119,6 @@ def validar_num(opcion):
 def pedir_domicilio():
     while True:
         domicilio = input("Ingresa tu domicilio: ")
-        # Verifica que el domicilio cumpla con los requisitos:
-        # 1. Mínimo una palabra.
-        # 2. Máximo 3 palabras.
-        # 3. Exactamente 4 números.
         if re.fullmatch(r"(\b\w+\b\s?){1,3}\d{4}$", domicilio.strip()):
             print("Domicilio válido:", domicilio)
             return domicilio
@@ -127,10 +141,8 @@ def validacion_año(año):
     limite_superior = 6
     while True:
         try:
-            # Solicitar un número al usuario
             año = int(input(f"Ingrese un año entre {limite_inferior} y {limite_superior}: "))
             
-            # Verificar si el número está dentro de los límites
             if limite_inferior <= año <= limite_superior:
                 print(f"¡Año válido! Ingresaste: {año}")
                 return año
@@ -141,11 +153,8 @@ def validacion_año(año):
 
 def turno():
     while True:
-        # Lista de turnos válidos
         turnos_validos = ["mañana", "tarde", "noche"]
-        # Solicitar al usuario que ingrese un turno
         turno = input("Ingrese un turno (mañana, tarde, noche): ").strip().lower()
-        # Verificar si el turno ingresado es válido
         if turno in turnos_validos:
             print(f"Turno Elegido: {turno.capitalize()}")
             return turno
@@ -155,16 +164,15 @@ def turno():
 
 def ingresar_Alumno():
     try:
-        # ingreso de datos del alumno
         legajo = validar_num('legajo')
-        nombre = input("ingrese el nombre del alumno: ")
-        apellido = input ("ingrese el apellido del alumno: ")
+        nombre = ingresar_nombre()
+        apellido = ingresar_apellido()
         documento = validar_num('dni')
         fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
         telefono = validar_num('telefono')
         domicilio = pedir_domicilio()
         correo = validar_correo("alumno")
-    except: # en caso de ingresar mal los datos da error
+    except:
         print("Datos ingresados erroneamente")
     else:
         query = """
@@ -177,41 +185,36 @@ def ingresar_Alumno():
 
 def ingresar_profesor():
     try:
-        # ingreso de datos del profesor 
-        nombre = input("ingrese el nombre del profesor: ")
-        apellido = input ("ingrese el apellido del profesor: ")
+        nombre = ingresar_nombre()
+        apellido = ingresar_apellido()
         documento = validar_num('dni')
         fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
         telefono = validar_num('telefono')
         domicilio = pedir_domicilio()
         correo = validar_correo("profesor")
-    except: # en caso de ingresar mal los datos da error
+    except:
         print("Datos ingresados erroneamente")
     else:
             
-        # Consulta sql
         query = """
                 INSERT INTO profesores (Nombre, Apellido, Documento, Fecha_Nacimiento, Telefono, Domicilio, Correo)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """
 
         params = (nombre, apellido, documento, fecha, telefono, domicilio, correo)
-        # Confirmar los cambios en la base de datos
         ejecutar_consulta(query, params)
 
             
 def crear_curso():
     try:
-        # ingreso de datos del profesor 
         materia = input("Ingrese el nombre de la materia: ")
         año_actual = validacion_año("año")
         Turno = turno()
         mostrar_opciones('profesor')
         profesor_idprofesor = int(input("ingrese el id del profesor que dara la materia: "))
-    except: # en caso de ingresar mal los datos da error
+    except:
         print("Datos ingresados erroneamente")
     else:
-        # Consulta sql
         query = """
                 INSERT INTO curso (Año, Turno, Materia, Profesores_idprofesor)
                 VALUES (%s, %s, %s, %s)
@@ -225,7 +228,7 @@ def poner_alumnos_curso():
     try:
         alumno_legajo = input("ingrese el legajo del alumno: ")
         curso_idcurso = input("ingrese el id del curso: ")
-    except: # en caso de ingresar mal los datos da error
+    except:
         print("Datos ingresados erroneamente")
     else:
         query = """
