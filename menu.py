@@ -159,7 +159,7 @@ while True:
                                 : """)
         if eliminar == "1":
             connection = conectar_bd()
-            print("Lista de alumnod:")
+            print("Lista de alumnos:")
             mostrar_alumnos(connection=connection)
 
             eliminar_alumno = input("Ingrese el legajo del alumno a eliminar: ")
