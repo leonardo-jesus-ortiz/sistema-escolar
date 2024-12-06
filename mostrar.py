@@ -1,6 +1,7 @@
 import mysql.connector
 from consultas import *
-    
+
+#funcion mostrar alumnos
 def mostrar_alumnos(connection):
     try:
         cursor = connection.cursor()
@@ -21,6 +22,7 @@ def mostrar_alumnos(connection):
     finally:
         cursor.close()
 
+#funcion ver alumno
 def ver_Alumno():
     try:
         mostrar_opciones("alumno")
@@ -50,7 +52,7 @@ def ver_Alumno():
         cursor.close()
         conexion.close()
 
-
+#funcion mostrar profesores
 def mostrar_profesores(connection):
     try:
         cursor = connection.cursor()
@@ -71,6 +73,7 @@ def mostrar_profesores(connection):
     finally:
         cursor.close()
 
+#funcion mostrar curso
 def mostrar_cursos(connection):
     try:
         cursor = connection.cursor()
@@ -90,7 +93,8 @@ def mostrar_cursos(connection):
 
     finally:
         cursor.close()
-
+        
+#funcion ver curso
 def ver_Curso():
     try:
         mostrar_opciones("curso")

@@ -1,5 +1,6 @@
 from consultas import *
     
+#funcion eliminar alumnos
 def eliminar_datos_alumno(eliminar_alumno):
     try:
         query = "DELETE FROM alumnos WHERE legajo = %s"
@@ -9,6 +10,7 @@ def eliminar_datos_alumno(eliminar_alumno):
     except Exception as err:
         print(f"Error al eliminar los datos del alumno: {err}")
 
+#funcion eliminar profesores
 def eliminar_datos_profesor(eliminar_profesor):
     try:
         query = "DELETE FROM profesores WHERE idprofesor = %s"
@@ -18,6 +20,7 @@ def eliminar_datos_profesor(eliminar_profesor):
     except Exception as err:
         print(f"Error al eliminar los datos del profesor: {err}")
 
+#funcion eliminar cursos
 def eliminar_datos_curso(eliminar_curso):
     try:
         query = "DELETE FROM curso WHERE idcurso = %s"

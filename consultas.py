@@ -96,25 +96,26 @@ def ingresar_apellido():
 
     
 def validar_num(opcion):
-    num = input(f"ingrese el numero de {opcion}: ")
-    if opcion == "dni":
-        if len(num) == 8:
-            print("DNI valido")
-            return num
-        else:
-            print("DNI invalido")
-    elif opcion == "telefono":
-        if len(num) == 10:
-            print("Telefono valido")
-            return num
-        else:
-            print("Telefono invalido")
-    elif opcion == "legajo":
-        if len(num) == 6:
-            print("Legajo valido")
-            return num
-        else:
-            print("Legajo invalido")
+    while True:
+        num = input(f"ingrese el numero de {opcion}: ")
+        if opcion == "dni":
+            if len(num) == 8:
+                print("DNI valido")
+                return num
+            else:
+                print("DNI invalido")
+        elif opcion == "telefono":
+            if len(num) == 10:
+                print("Telefono valido")
+                return num
+            else:
+                print("Telefono invalido")
+        elif opcion == "legajo":
+            if len(num) == 6:
+                print("Legajo valido")
+                return num
+            else:
+                print("Legajo invalido")
 
 def pedir_domicilio():
     while True:
@@ -161,6 +162,20 @@ def turno():
         else:
             print("Turno incorrecto. Por favor, ingrese un turno que esté en la lista.")
 
+def solicitar_fecha_nacimiento():
+    while True:
+        try:
+            fecha = input("Ingrese su fecha de nacimiento (YYYY-MM-DD): ")
+            año, mes, dia = map(int, fecha.split('-'))
+            
+            if 1930 <= año <= 2008:
+                print(f"Fecha válida: {fecha}")
+                return fecha
+            else:
+                print("El año debe estar entre 1930 y 2008. Inténtelo de nuevo.")
+        except ValueError:
+            print("Formato inválido. Use el formato YYYY-MM-DD. Inténtelo de nuevo.")
+
 
 def ingresar_Alumno():
     try:
@@ -168,7 +183,7 @@ def ingresar_Alumno():
         nombre = ingresar_nombre()
         apellido = ingresar_apellido()
         documento = validar_num('dni')
-        fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
+        fecha = solicitar_fecha_nacimiento()
         telefono = validar_num('telefono')
         domicilio = pedir_domicilio()
         correo = validar_correo("alumno")
@@ -188,7 +203,7 @@ def ingresar_profesor():
         nombre = ingresar_nombre()
         apellido = ingresar_apellido()
         documento = validar_num('dni')
-        fecha = input("ingrese su fecha de nacimiento (YYYY-MM-DD): ")
+        fecha = solicitar_fecha_nacimiento()
         telefono = validar_num('telefono')
         domicilio = pedir_domicilio()
         correo = validar_correo("profesor")
